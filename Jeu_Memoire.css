@@ -1,0 +1,67 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #7B68EE, #6A5ACD, #483D8B);
+    margin: 0;
+}
+
+.menu {
+    background-color: rgba(255, 255, 255, 0.15);
+    overflow: hidden;
+}
+
+.logo-titre {
+    float: left;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    padding: 0 30px;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+    object-fit: contain;
+}
+
+.titre {
+    color: white;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+.menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    float: left;
+}
+
+.menu li {
+    float: left;
+    width: 160px;
+    height: 60px;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    padding: 20px 0;
+    display: block;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.menu li:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.menu li:hover a {
+    color: #E6E6FA;
+}
