@@ -9,11 +9,13 @@ body {
     background: linear-gradient(135deg, #7B68EE, #6A5ACD, #483D8B);
     margin: 0;
     min-height: 100vh;
+    padding-bottom: 20px;
 }
 
 .menu {
     background-color: rgba(255, 255, 255, 0.15);
     overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .logo-titre {
@@ -74,15 +76,24 @@ body {
     padding: 30px;
     background: white;
     border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .section.active {
     display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .section h2 {
     color: #483D8B;
     margin-bottom: 20px;
+    border-bottom: 2px solid #7B68EE;
+    padding-bottom: 10px;
 }
 
 .section h3 {
@@ -123,4 +134,220 @@ body {
 .profile-section {
     display: flex;
     gap: 30px;
+}
+
+.game-controls {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.btn-niveau {
+    background: linear-gradient(135deg, #DC143C, #B22222);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4);
+}
+
+.btn-niveau:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(220, 20, 60, 0.6);
+}
+
+.game-board {
+    display: grid;
+    gap: 15px;
+    justify-content: center;
+    perspective: 1000px;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.game-board.facile {
+    grid-template-columns: repeat(4, 120px);
+}
+
+.game-board.moyen {
+    grid-template-columns: repeat(4, 120px);
+}
+
+.game-board.difficile {
+    grid-template-columns: repeat(4, 120px);
+}
+
+.card {
+    width: 120px;
+    height: 160px;
+    position: relative;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card.matched {
+    cursor: default;
+    transform: rotateY(180deg);
+}
+
+.card .back,
+.card .front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    backface-visibility: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* DOS DE LA CARTE - SIMPLIFIÉ */
+.card .back {
+    background: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
+    border: 3px solid #FFD700;
+    transform: rotateY(0deg);
+    z-index: 2;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* TEXTE SIMPLE POUR LE DOS */
+.card .back::after {
+    content: '?';
+    font-size: 3rem;
+    font-weight: bold;
+    color: #FFD700;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+}
+
+/* RECTO DE LA CARTE */
+.card .front {
+    background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+    font-size: 3.5rem;
+    border: 3px solid #FFD700;
+    transform: rotateY(180deg);
+    z-index: 1;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.card.matched .front {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    border-color: #FF6B6B;
+}
+
+.game-message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.game-message.show {
+    opacity: 1;
+}
+
+.game-message.success {
+    background: rgba(50, 205, 50, 0.2);
+    color: #228B22;
+    border: 2px solid #32CD32;
+}
+
+.game-message.info {
+    background: rgba(30, 144, 255, 0.2);
+    color: #1E90FF;
+    border: 2px solid #1E90FF;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .menu ul {
+        float: none;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .logo-titre {
+        float: none;
+        justify-content: center;
+    }
+    
+    .game-board.facile,
+    .game-board.moyen,
+    .game-board.difficile {
+        grid-template-columns: repeat(3, 100px);
+        gap: 10px;
+    }
+    
+    .card {
+        width: 100px;
+        height: 140px;
+    }
+    
+    .card .front {
+        font-size: 2.8rem;
+    }
+    
+    .card .back::after {
+        font-size: 2.5rem;
+    }
+    
+    .game-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn-niveau {
+        width: 200px;
+    }
+    
+    .game-background {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-board.facile,
+    .game-board.moyen,
+    .game-board.difficile {
+        grid-template-columns: repeat(2, 90px);
+        gap: 8px;
+    }
+    
+    .card {
+        width: 90px;
+        height: 120px;
+    }
+    
+    .card .front {
+        font-size: 2.3rem;
+    }
+    
+    .card .back::after {
+        font-size: 2rem;
+    }
+    
+    .game-background {
+        padding: 20px;
+    }
+    
+    .section {
+        padding: 20px;
+        margin: 20px auto;
+    }
 }

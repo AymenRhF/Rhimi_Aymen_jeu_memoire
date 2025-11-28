@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jeu de memoire</title>
+  <title>Jeu de mémoire amélioré</title>
   <link rel="stylesheet" href="Jeu_Memoire.css">
 </head>
 <body>
@@ -22,9 +22,21 @@
     <!-- Section Jeu -->
     <div id="jeu" class="section active">
         <h2>🎮 Jeu de Mémoire</h2>
-        <div class="game-background">
-            <p>Le jeu sera disponible ici bientôt...</p>
+    
+        <div class="game-controls">
+            <button onclick="startGame('facile')" class="btn-niveau">Facile (8 cartes)</button>
+            <button onclick="startGame('moyen')" class="btn-niveau">Moyen (12 cartes)</button>
+            <button onclick="startGame('difficile')" class="btn-niveau">Difficile (16 cartes)</button>
+            <button onclick="resetGame()" class="btn-niveau">Recommencer</button>
         </div>
+
+        <div class="game-background">
+            <div id="game-board" class="game-board">
+                <!-- Les cartes seront générées ici -->
+            </div>
+        </div>
+        
+        <div id="game-message" class="game-message"></div>
     </div>
 
     <!-- Section Comment Jouer -->
@@ -35,13 +47,11 @@
         <div class="instruction-list">
             <h3>🎯 Règles du jeu :</h3>
             <ul>
-                <li><strong>Objectif :</strong> Trouver toutes les paires de cartes identiques en un minimum de coups et de temps.</li>
+                <li><strong>Objectif :</strong> Trouver toutes les paires de cartes identiques.</li>
                 <li><strong>Comment jouer :</strong> Cliquez sur une carte pour la retourner. Ensuite, cliquez sur une deuxième carte pour trouver sa paire.</li>
-                <li><strong>Paire trouvée :</strong> Si les deux cartes sont identiques, elles restent retournées et vous gagnez des points !</li>
+                <li><strong>Paire trouvée :</strong> Si les deux cartes sont identiques, elles restent retournées.</li>
                 <li><strong>Pas de paire :</strong> Si les cartes sont différentes, elles se retournent automatiquement après un court instant.</li>
                 <li><strong>Niveaux :</strong> Choisissez entre différents niveaux de difficulté (Facile, Moyen, Difficile) pour varier le nombre de cartes.</li>
-                <li><strong>Cartes spéciales :</strong> Découvrez des cartes bonus qui vous donnent des avantages (joker, temps supplémentaire, etc.).</li>
-                <li><strong>Score :</strong> Votre score dépend du nombre de coups et du temps écoulé. Soyez rapide et précis !</li>
             </ul>
         </div>
 
@@ -51,7 +61,7 @@
                 <li>Mémorisez bien l'emplacement des cartes que vous retournez</li>
                 <li>Commencez par explorer différentes zones du plateau</li>
                 <li>Restez concentré et patient</li>
-                <li>Utilisez les cartes spéciales au bon moment</li>
+                <li>Essayez de former des stratégies de mémorisation</li>
             </ul>
         </div>
     </div>
@@ -68,11 +78,13 @@
                 <p>HTML5 • CSS • JavaScript • Responsive Design • Animations CSS • Manipulation du DOM • Gestion d'événements</p>
                 
                 <h3>🎯 Ce Projet</h3>
-                <p>Ce jeu de mémoire est un projet qui démontre mes compétences en développement web front-end. Il inclut des fonctionnalités avancées comme la gestion d'état, les animations, le stockage local des scores, et un design responsive.</p>
+                <p>Ce jeu de mémoire est un projet qui démontre mes compétences en développement web front-end. Il inclut des fonctionnalités avancées comme la gestion d'état, les animations, et un design responsive.</p>
             </div>
         </div>
     </div>
-
+    <audio id="background-music" loop>
+        <source src="Dreams' Swirling Whispers.mp4" type="audio/mpeg">
+    </audio>
     <script src="Jeu_Memoire.js"></script>
 </body>
 </html>
