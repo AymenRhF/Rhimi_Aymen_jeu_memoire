@@ -63,7 +63,7 @@ function startGame(niveau) {
         card.dataset.index = index;
         
         card.innerHTML = `
-            <div class="back">?</div>
+            <div class="back"></div>
             <div class="front">${emoji}</div>
         `;
         
