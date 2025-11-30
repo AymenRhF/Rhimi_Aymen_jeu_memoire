@@ -12,8 +12,17 @@ let moves = 0;
 let timer = 0;
 let timerInterval = null;
 
-// emojis pour les cartes
-const emojis = ['🐱', '🐶', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮'];
+// images pour les cartes
+const images = [
+    'image/american_shorthair_cat.png',//ok
+    'image/black_cat.png',//ok
+    'image/calico_cat.png',//ok
+    'image/evil_larry.png',//ok
+    'image/gentleorange_cat.png',//ok
+    'image/girl_cat.png',
+    'image/tabby_cat.png',
+    'image/white_cat.png'
+];
 
 // fonction pour afficher/cacher les sections 
 function showSection(sectionId) {
@@ -54,33 +63,35 @@ function startGame(niveau) {
         totalPairs = 8;
     }
     
-    // créer les paires de cartes
-    const selectedEmojis = emojis.slice(0, totalPairs);
+    // créer les paires de cartes - utiliser seulement les images disponibles
+    const availablePairs = Math.min(totalPairs, images.length);
+    const normalImages = images.filter(img => 
+        img !== 'image/calico_cat.png' && img !== 'image/evil_larry.png'
+    );
+    const selectedNormalImages = normalImages.slice(0, availablePairs - 2);
     
-    // ajouter des cartes spéciales (bonus/malus)
+    // Ajouter les cartes spéciales fixes
+    const selectedImages = [
+        ...selectedNormalImages,
+        'image/calico_cat.png', // Toujours bonus
+        'image/evil_larry.png'  // Toujours malus
+    ];
+    
+    // ajouter des cartes spéciales (bonus/malus fixes)
     const numSpecialCards = niveau === 'facile' ? 1 : niveau === 'moyen' ? 2 : 3;
-    const specialIndices = [];
     
-    // sélectionner aléatoirement des indices pour les cartes spéciales
-    while (specialIndices.length < numSpecialCards) {
-        const randomIndex = Math.floor(Math.random() * totalPairs);
-        if (!specialIndices.includes(randomIndex)) {
-            specialIndices.push(randomIndex);
-        }
-    }
-    
-    // créer le tableau de cartes avec les types spéciaux
+    // créer le tableau de cartes avec les types spéciaux fixes
     let cards = [];
-    selectedEmojis.forEach((emoji, index) => {
-        if (specialIndices.includes(index)) {
-            // cette paire est spéciale
-            const specialType = specialIndices.indexOf(index) % 2 === 0 ? 'bonus' : 'malus';
-            cards.push({ emoji: emoji, special: specialType });
-            cards.push({ emoji: emoji, special: specialType });
+    selectedImages.forEach((image, index) => {
+        if (image === 'image/calico_cat.png') {
+            cards.push({ image: image, special: 'bonus' });
+            cards.push({ image: image, special: 'bonus' });
+        } else if (image === 'image/evil_larry.png') {
+            cards.push({ image: image, special: 'malus' });
+            cards.push({ image: image, special: 'malus' });
         } else {
-            // paire normale
-            cards.push(emoji);
-            cards.push(emoji);
+            cards.push(image);
+            cards.push(image);
         }
     });
     
@@ -93,19 +104,23 @@ function startGame(niveau) {
         cardElement.className = 'card';
         
         if (typeof card === 'object') {
-            cardElement.dataset.emoji = card.emoji;
+            cardElement.dataset.image = card.image;
             cardElement.dataset.special = card.special;
             cardElement.classList.add('special-' + card.special);
             
             cardElement.innerHTML = `
                 <div class="back"></div>
-                <div class="front">${card.emoji}</div>
+                <div class="front">
+                    <img src="${card.image}" alt="Carte spéciale" class="card-image">
+                </div>
             `;
         } else {
-            cardElement.dataset.emoji = card;
+            cardElement.dataset.image = card;
             cardElement.innerHTML = `
                 <div class="back"></div>
-                <div class="front">${card}</div>
+                <div class="front">
+                    <img src="${card}" alt="Carte mémoire" class="card-image">
+                </div>
             `;
         }
         
@@ -157,7 +172,7 @@ function flipCard() {
 
 // vérifier si les cartes correspondent
 function checkMatch() {
-    const isMatch = firstCard.dataset.emoji === secondCard.dataset.emoji;
+    const isMatch = firstCard.dataset.image === secondCard.dataset.image;
     
     if (isMatch) {
         disableCards();

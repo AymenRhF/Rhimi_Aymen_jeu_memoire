@@ -11,7 +11,7 @@ body {
     padding-bottom: 20px;
 }
 
-/* menu navigation */
+/* Navigation */
 .menu {
     background-color: rgba(255, 255, 255, 0.15);
     overflow: hidden;
@@ -32,7 +32,6 @@ body {
     height: 80px;
     margin-right: 20px;
     object-fit: contain;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 .titre {
@@ -71,7 +70,7 @@ body {
     color: #E6E6FA;
 }
 
-/* sections */
+/* Sections */
 .section {
     display: none;
     max-width: 1000px;
@@ -84,12 +83,6 @@ body {
 
 .section.active {
     display: block;
-    animation: fadeIn 0.5s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
 }
 
 .section h2 {
@@ -97,13 +90,11 @@ body {
     margin-bottom: 20px;
     border-bottom: 3px solid #7B68EE;
     padding-bottom: 10px;
-    font-size: 1.8rem;
 }
 
 .section h3 {
     color: #6A5ACD;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin: 20px 0 10px;
 }
 
 .section p {
@@ -112,38 +103,29 @@ body {
     margin-bottom: 15px;
 }
 
-/* statistiques du jeu */
+/* Game Stats */
 .game-stats {
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
     gap: 30px;
-    flex-wrap: wrap;
+    margin-bottom: 20px;
     background: rgba(255, 255, 255, 0.95);
     padding: 20px 30px;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
 }
 
 .stat-box {
     display: flex;
     align-items: center;
     gap: 12px;
-    transition: transform 0.3s ease;
-}
-
-.stat-box:hover {
-    transform: scale(1.05);
 }
 
 .stat-box .label {
     font-size: 1.1rem;
     font-weight: 600;
     color: #6A5ACD;
-    display: flex;
-    align-items: center;
-    gap: 5px;
 }
 
 .stat-box .value {
@@ -153,7 +135,7 @@ body {
     min-width: 60px;
 }
 
-/* zone de jeu */
+/* Game Area */
 .game-background {
     background: rgba(123, 104, 238, 0.2);
     border-radius: 10px;
@@ -176,7 +158,6 @@ body {
     border: none;
     padding: 12px 25px;
     border-radius: 8px;
-    font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s;
@@ -186,49 +167,41 @@ body {
 .btn-niveau:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(220, 20, 60, 0.6);
-    background: linear-gradient(135deg, #FF1744, #DC143C);
 }
 
-/* plateau de jeu */
 .game-board {
     display: grid;
+    grid-template-columns: repeat(4, 120px);
     gap: 15px;
     justify-content: center;
-    perspective: 1000px;
     margin: 0 auto;
     width: fit-content;
 }
 
-.game-board.facile, .game-board.moyen, .game-board.difficile {
-    grid-template-columns: repeat(4, 120px);
-}
 
-/* cartes */
 .card {
     width: 120px;
     height: 160px;
     position: relative;
     cursor: pointer;
     transform-style: preserve-3d;
-    transition: transform 0.6s;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
 }
 
+
 .card:hover {
-    transform: scale(1.05);
+    transform: none;
 }
 
 .card.flipped {
     transform: rotateY(180deg);
 }
 
-.card.flipped:hover {
-    transform: rotateY(180deg) scale(1.05);
-}
-
 .card.matched {
     cursor: default;
     transform: rotateY(180deg);
-    /* Jump animation removed */
+    position: relative;
 }
 
 .card .back, .card .front {
@@ -242,15 +215,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    transform-style: preserve-3d;
 }
-
-/* dos de la carte */
 .card .back {
-    background: repeating-linear-gradient(45deg, #4A90E2 0px, #4A90E2 10px, #7BB3F0 10px, #7BB3F0 20px);
+    background: repeating-linear-gradient(45deg, #4A90E2, #4A90E2 10px, #7BB3F0 10px, #7BB3F0 20px);
     border: 6px solid #FFD93D;
     border-radius: 16px;
-    z-index: 2;
-    box-shadow: 0 8px 0 #3A7BC8, 0 12px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 0 #3A7BC8;
     position: relative;
     overflow: hidden;
 }
@@ -258,13 +229,9 @@ body {
 .card .back::before {
     content: '';
     position: absolute;
-    top: 15px;
-    left: 15px;
-    right: 15px;
-    bottom: 15px;
+    top: 15px; left: 15px; right: 15px; bottom: 15px;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 12px;
-    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card .back::after {
@@ -272,50 +239,41 @@ body {
     font-size: 4rem;
     font-weight: 900;
     color: #4A90E2;
-    text-shadow: 4px 4px 0px #FFD93D, -2px -2px 0px #fff, 6px 6px 0px rgba(0, 0, 0, 0.2);
     position: relative;
     z-index: 1;
     font-family: 'Comic Sans MS', cursive;
-    transform: rotate(-8deg);
 }
 
-/* recto de la carte */
+/* Card Front */
 .card .front {
     background: linear-gradient(135deg, #4ECDC4, #44A08D);
-    font-size: 3.5rem;
     border: 6px solid #FFD93D;
     transform: rotateY(180deg);
-    z-index: 1;
-    box-shadow: 0 8px 0 #35A08D, 0 12px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 0 #35A08D;
 }
 
-/* cartes spéciales */
+/* Card Images */
+.card .front .card-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+/* Special Cards */
 .card.special-bonus .front {
     background: linear-gradient(135deg, #FFD700, #FFA500);
-    animation: pulseGold 2s infinite;
 }
 
 .card.special-malus .front {
     background: linear-gradient(135deg, #8B008B, #4B0082);
-    animation: pulsePurple 2s infinite;
-}
-
-@keyframes pulseGold {
-    0%, 100% { box-shadow: 0 8px 0 #CC8800, 0 12px 20px rgba(255, 215, 0, 0.4); }
-    50% { box-shadow: 0 8px 0 #CC8800, 0 12px 30px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.6); }
-}
-
-@keyframes pulsePurple {
-    0%, 100% { box-shadow: 0 8px 0 #3A0052, 0 12px 20px rgba(139, 0, 139, 0.4); }
-    50% { box-shadow: 0 8px 0 #3A0052, 0 12px 30px rgba(139, 0, 139, 0.8), 0 0 40px rgba(139, 0, 139, 0.6); }
 }
 
 .card.matched .front {
     background: linear-gradient(135deg, #32CD32, #228B22);
-    box-shadow: 0 8px 0 #1B6B1B, 0 12px 20px rgba(50, 205, 50, 0.6);
 }
 
-/* messages du jeu */
+/* Game Messages */
 .game-message {
     margin-top: 20px;
     padding: 15px;
@@ -329,12 +287,6 @@ body {
 
 .game-message.show {
     opacity: 1;
-    animation: slideIn 0.5s ease;
-}
-
-@keyframes slideIn {
-    from { transform: translateY(-20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
 }
 
 .game-message.success {
@@ -361,7 +313,7 @@ body {
     border: 2px solid #8B008B;
 }
 
-/* instructions */
+/* Instructions */
 .instruction-list {
     background: rgba(123, 104, 238, 0.1);
     padding: 20px;
@@ -379,12 +331,7 @@ body {
     line-height: 1.6;
 }
 
-.profile-content ul {
-    color: #333;
-    line-height: 1.8;
-}
-
-/* meilleur score */
+/* Leaderboard */
 .best-scores-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -402,10 +349,9 @@ body {
 
 .best-score-card h3 {
     color: #483D8B;
-    margin: 0 0 20px 0;
+    margin: 0 0 20px;
     padding-bottom: 15px;
     border-bottom: 2px solid #7B68EE;
-    font-size: 1.3rem;
 }
 
 .best-score-display {
@@ -421,7 +367,6 @@ body {
     font-weight: bold;
     color: #FFD700;
     margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .best-score-display .score-details {
@@ -436,7 +381,7 @@ body {
     font-style: italic;
 }
 
-/* responsive design */
+/* Responsive */
 @media (max-width: 768px) {
     .menu ul {
         float: none;
@@ -454,7 +399,7 @@ body {
         justify-content: center;
     }
     
-    .game-board.facile, .game-board.moyen, .game-board.difficile {
+    .game-board {
         grid-template-columns: repeat(3, 100px);
         gap: 10px;
     }
@@ -464,12 +409,13 @@ body {
         height: 140px;
     }
     
-    .card .front {
-        font-size: 2.8rem;
-    }
-    
     .card .back::after {
         font-size: 3.5rem;
+    }
+    
+    .card .front .card-image {
+        width: 60px;
+        height: 60px;
     }
     
     .game-controls {
@@ -490,22 +436,17 @@ body {
         padding: 15px 20px;
     }
     
-    .stat-box {
-        gap: 8px;
-    }
-    
     .stat-box .label {
         font-size: 1rem;
     }
     
     .stat-box .value {
         font-size: 1.4rem;
-        min-width: 50px;
     }
 }
 
 @media (max-width: 480px) {
-    .game-board.facile, .game-board.moyen, .game-board.difficile {
+    .game-board {
         grid-template-columns: repeat(2, 90px);
         gap: 8px;
     }
@@ -515,12 +456,13 @@ body {
         height: 120px;
     }
     
-    .card .front {
-        font-size: 2.3rem;
-    }
-    
     .card .back::after {
         font-size: 3rem;
+    }
+    
+    .card .front .card-image {
+        width: 50px;
+        height: 50px;
     }
     
     .game-background {
@@ -549,13 +491,5 @@ body {
         flex-direction: column;
         gap: 12px;
         padding: 15px;
-    }
-    
-    .stat-box .label {
-        font-size: 0.95rem;
-    }
-    
-    .stat-box .value {
-        font-size: 1.3rem;
     }
 }
