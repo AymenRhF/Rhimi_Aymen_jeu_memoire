@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jeu de mémoire amélioré</title>
+  <title>Jeu de mémoire avancé</title>
   <link rel="stylesheet" href="Jeu_Memoire.css">
 </head>
 <body>
@@ -14,8 +14,9 @@
         </div>
         <ul>
             <li><a href="#" onclick="showSection('jeu'); return false;">Jeu</a></li>
+            <li><a href="#" onclick="showSection('scores'); return false;">Meilleurs Scores</a></li>
             <li><a href="#" onclick="showSection('comment'); return false;">Comment jouer</a></li>
-            <li><a href="#" onclick="showSection('propos'); return false;">À propos de moi</a></li>
+            <li><a href="#" onclick="showSection('propos'); return false;">À propos</a></li>
         </ul>
     </nav>
 
@@ -23,6 +24,21 @@
     <div id="jeu" class="section active">
         <h2>🎮 Jeu de Mémoire</h2>
     
+        <div class="game-stats">
+            <div class="stat-box">
+                <div class="label">⏱️ Temps</div>
+                <div class="value" id="timer">00:00</div>
+            </div>
+            <div class="stat-box">
+                <div class="label">🎯 Score</div>
+                <div class="value" id="score">0</div>
+            </div>
+            <div class="stat-box">
+                <div class="label">🔄 Coups</div>
+                <div class="value" id="moves">0</div>
+            </div>
+        </div>
+
         <div class="game-controls">
             <button onclick="startGame('facile')" class="btn-niveau">Facile (8 cartes)</button>
             <button onclick="startGame('moyen')" class="btn-niveau">Moyen (12 cartes)</button>
@@ -39,29 +55,58 @@
         <div id="game-message" class="game-message"></div>
     </div>
 
+    <!-- Section Meilleurs Scores -->
+    <div id="scores" class="section">
+        <h2>🏆 Meilleurs Scores</h2>
+        <div class="best-scores-container">
+            <div class="best-score-card">
+                <h3>🥉 Niveau Facile</h3>
+                <div id="best-score-facile"></div>
+            </div>
+            <div class="best-score-card">
+                <h3>🥈 Niveau Moyen</h3>
+                <div id="best-score-moyen"></div>
+            </div>
+            <div class="best-score-card">
+                <h3>🥇 Niveau Difficile</h3>
+                <div id="best-score-difficile"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Section Comment Jouer -->
     <div id="comment" class="section">
         <h2>📖 Comment Jouer</h2>
-        <p>Bienvenue dans le jeu de mémoire ! Testez votre mémoire et votre concentration en trouvant toutes les paires de cartes.</p>
+        <p>Bienvenue dans le jeu de mémoire avancé ! Testez votre mémoire et votre concentration en trouvant toutes les paires de cartes le plus rapidement possible.</p>
         
         <div class="instruction-list">
             <h3>🎯 Règles du jeu :</h3>
             <ul>
-                <li><strong>Objectif :</strong> Trouver toutes les paires de cartes identiques.</li>
+                <li><strong>Objectif :</strong> Trouver toutes les paires de cartes identiques le plus rapidement possible avec le minimum de coups.</li>
                 <li><strong>Comment jouer :</strong> Cliquez sur une carte pour la retourner. Ensuite, cliquez sur une deuxième carte pour trouver sa paire.</li>
-                <li><strong>Paire trouvée :</strong> Si les deux cartes sont identiques, elles restent retournées.</li>
+                <li><strong>Paire trouvée :</strong> Si les deux cartes sont identiques, elles restent retournées et vous gagnez des points.</li>
                 <li><strong>Pas de paire :</strong> Si les cartes sont différentes, elles se retournent automatiquement après un court instant.</li>
-                <li><strong>Niveaux :</strong> Choisissez entre différents niveaux de difficulté (Facile, Moyen, Difficile) pour varier le nombre de cartes.</li>
+                <li><strong>Niveaux :</strong> Choisissez entre Facile (8 cartes), Moyen (12 cartes) ou Difficile (16 cartes).</li>
             </ul>
         </div>
 
         <div class="instruction-list" style="margin-top: 30px;">
-            <h3>💡 Conseils :</h3>
+            <h3>✨ Cartes Spéciales :</h3>
             <ul>
-                <li>Mémorisez bien l'emplacement des cartes que vous retournez</li>
-                <li>Commencez par explorer différentes zones du plateau</li>
-                <li>Restez concentré et patient</li>
-                <li>Essayez de former des stratégies de mémorisation</li>
+                <li><strong> Carte Bonus (dorée) :</strong> Trouvez cette paire pour gagner +100 points bonus !</li>
+                <li><strong> Carte Malus (violette) :</strong> Attention ! Cette paire vous fait perdre 50 points.</li>
+                <li>Les cartes spéciales sont mélangées aléatoirement à chaque partie pour plus de surprise.</li>
+            </ul>
+        </div>
+
+        <div class="instruction-list" style="margin-top: 30px;">
+            <h3>🎮 Système de Score :</h3>
+            <ul>
+                <li><strong>Paire normale :</strong> +50 points</li>
+                <li><strong>Paire bonus :</strong> +150 points (50 de base + 100 bonus)</li>
+                <li><strong>Paire malus :</strong> 0 points (50 de base - 50 malus)</li>
+                <li><strong>Bonus de temps :</strong> Plus vous terminez rapidement, plus vous gagnez de points bonus !</li>
+                <li><strong>Efficacité :</strong> Moins vous faites de coups, meilleur est votre score.</li>
             </ul>
         </div>
     </div>
@@ -74,17 +119,23 @@
                 <h3>🎓 Formation</h3>
                 <p>Étudiant en Le Cycle Préparatoire Intégré à la Faculté des sciences de Tunis (FST)</p>
                 
-                <h3>💼 Compétences</h3>
-                <p>HTML5 • CSS • JavaScript • Responsive Design • Animations CSS • Manipulation du DOM • Gestion d'événements</p>
+                <h3>💼 Compétences Techniques</h3>
+                <p><strong>Languages & Technologies :</strong></p>
+                <p>HTML5 • CSS3 • JavaScript ES6+ • Responsive Design • Animations CSS • Manipulation du DOM • Gestion d'événements • LocalStorage API • Git</p>
                 
-                <h3>🎯 Ce Projet</h3>
-                <p>Ce jeu de mémoire est un projet qui démontre mes compétences en développement web front-end. Il inclut des fonctionnalités avancées comme la gestion d'état, les animations, et un design responsive.</p>
+                <h3>🎯 À Propos de ce Projet</h3>
+
+                <p>Ce jeu de mémoire avancé est un projet personnel qui démontre mes compétences en développement web front-end. Il a été conçu pour être à la fois amusant et techniquement abouti.</p>
+                <h3>🚀 Technologies Utilisées</h3>
+                <p>Ce projet est entièrement réalisé en <strong>HTML5, CSS3 et JavaScript pur</strong> , sans aucune bibliothèque externe, démontrant une maîtrise des fondamentaux du développement web.</p>
             </div>
         </div>
     </div>
+
     <audio id="background-music" loop>
         <source src="Dreams' Swirling Whispers.mp4" type="audio/mpeg">
     </audio>
+    
     <script src="Jeu_Memoire.js"></script>
 </body>
 </html>
