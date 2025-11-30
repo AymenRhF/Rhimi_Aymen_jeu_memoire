@@ -18,8 +18,8 @@ Chronomètre avec bonus de rapidité
 Sauvegarde des meilleurs scores
 
 
-🔗 Lien GitHub Pages
-[https://votrenom.github.io/jeu-memoire/]
+Lien GitHub Pages
+[https://aymenrhf.github.io/Rhimi_Aymen_jeu_memoire/]
 
 Nouveautés explorées
 Apprentissages techniques :
